@@ -51,6 +51,7 @@ class block_moyclass extends block_base {
 
         $this->content = new stdClass;
         $this->content->text = $content;
+        $this->page->requires->js_call_amd('local_moyclass/confirm');
 
         return $this->content;
     }
