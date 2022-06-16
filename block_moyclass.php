@@ -23,6 +23,7 @@
  */
 
 use local_moyclass\pages\dashboard;
+use local_moyclass\pages\teacher;
 
 class block_moyclass extends block_base {
     function init() {
@@ -43,10 +44,16 @@ class block_moyclass extends block_base {
         $showcourses = get_config("block_moyclass", "showwidget");
 
         $is_student = $DB->get_record('local_moyclass_students', ['email' => $USER->email]);
+        $is_teacher = $DB->get_record('local_moyclass_managers', ['email' => $USER->email]);
 
         if ($showcourses && $is_student) {
             $dashboard = new dashboard();
             $content = $dashboard->render();
+        }
+
+        if ($showcourses && $is_teacher) {
+            $teacherPage = new teacher();
+            $content = $teacherPage->render();
         }
 
         $this->content = new stdClass;
